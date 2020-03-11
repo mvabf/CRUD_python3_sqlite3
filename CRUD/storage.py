@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS products (
 );
 """)
 
+
 # insert values
 def insert_products():
     db_cursor.execute("INSERT INTO products(name, price) VALUES (?, ?)",(item_name,item_price))
@@ -40,19 +41,20 @@ def select_products():
 
 # update items price
 def update_products():
-    db_cursor.execute("UPDATE products SET price = ? WHERE id = ?",(new_price, product_id))
+    db_cursor.execute("UPDATE products SET price = ?, department = ? WHERE id = ?",(new_price,new_department,product_id))
     conn.commit()
     print("Success")
 
 # delete items
 def delete_products():
-    db_cursor.execute("DELETE FROM products WHERE id = ?",(product_id))
+    db_cursor.execute("DELETE FROM products WHERE id = ?",(product_id,))
     conn.commit()
     print("Delete success")
 
 if user_option == 1:
     item_name = input("Insert item name: ")
     item_price = float(input("Insert item price: "))
+    item_department = input("Insert item department")
     insert_products()
 
 if user_option == 2:
@@ -61,6 +63,7 @@ if user_option == 2:
 if user_option == 3:
     product_id = int(input("Insert id of the product: "))
     new_price = float(input("Insert new price for product: "))
+    new_department = input("Insert new department: ")
     update_products()
 
 if user_option == 4:
